@@ -9,8 +9,9 @@ Pass:2222
 
 # テスト用アカウント
 購入者用
-メールアドレス:
-パスワード:
+メールアドレス:kido@mail.com
+パスワード:kusaka913
+
 
 購入用カード情報
 番号：4242424242424242
@@ -78,9 +79,9 @@ has_many :comments
 | description      | text       | null: false                    |
 | category_id      | integer    | null: false                    |
 | item_status_id   | integer    | null: false                    |
-| shipping_cost_id | integer    | null: false                    |
 | prefecture_id    | integer    | null: false                    |
 | shipping_date_id | integer    | null: false                    |
+| shipping_cost_id | integer    | null: false                    |
 | price            | integer    | null: false                    |
 
 # Association
