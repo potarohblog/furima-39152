@@ -35,7 +35,7 @@ class User < ApplicationRecord
         private
       
         def password_complexity
-          if password.present? && !password.match?(/\A(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]+\z/)
+          if password.present? && !password.match?(/\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i)
             errors.add(:password, "は英字と数字の両方を含めて設定してください")
           end
         end
