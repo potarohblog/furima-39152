@@ -3,8 +3,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :items
-  has_many :orders
+        #  出品機能
+  # has_many :items
+  # 購入機能
+  # has_many :orders
 
   with_options presence: true do
     validates :nickname
