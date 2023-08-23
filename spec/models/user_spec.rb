@@ -46,59 +46,29 @@ describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password can't be blank")
       end
 
-      # it "password_confirmationが空では登録できない" do
-      #   @user.password_confirmation = ""
-      #   @user.valid?
-      #   expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
-      # end
-
       it "passwordが5文字以下であれば登録できない" do
         @user.password = "00000"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
       end
 
-      # it "password_confirmationが5文字以下であれば登録できない" do
-      #   @user.password_confirmation = "00000"
-      #   @user.valid?
-      #   expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
-      # end
-
       it "passwordが英字のみでは登録できない" do
         @user.password = "password"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid")
       end
-      
-      # it "ppassword_confirmationが英字のみでは登録できない" do
-      #   @user.password_confirmation = "password"
-      #   @user.valid?
-      #   expect(@user.errors.full_messages).to include("password confirmation is invalid")
-      # end
 
       it "passwordが数字のみでは登録できない" do
         @user.password = "123456"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid")
       end
-      
-      # it "password_confirmationが数字のみでは登録できない" do
-      #   @user.password_confirmation = "123456"
-      #   @user.valid?
-      #   expect(@user.errors.full_messages).to include("password confirmation is invalid")
-      # end
 
       it "passwordに全角文字が含まれていると登録できない" do
         @user.password = "パスワード123"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid")
       end
-
-      # it "password_confirmationに全角文字が含まれていると登録できない" do
-      #   @user.password_confirmation = "パスワード123"
-      #   @user.valid?
-      #   expect(@user.errors.full_messages).to include("password confirmation is invalid")
-      # end
       
       it "passwordとpassword_confirmationが違う値の場合登録できない" do
         @user.password = "password123"
