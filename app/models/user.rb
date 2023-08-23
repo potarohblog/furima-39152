@@ -4,9 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-        #  validate do
-        #   password_complexity
-        #  end
+         validate do
+          password_complexity
+         end
 
         # 出品機能
         # has_many :items
@@ -36,7 +36,7 @@ class User < ApplicationRecord
       
         def password_complexity
           if password.present? && !password.match?(/\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i)
-            errors.add(:password, "は英字と数字の両方を含めて設定してください")
+            errors.add(:password, "is invalid")
           end
         end
 end
