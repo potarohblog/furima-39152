@@ -9,7 +9,7 @@ class User < ApplicationRecord
          end
 
         # 出品機能
-        # has_many :items
+        has_many :items
 
         # 購入機能
         # has_many :orders
