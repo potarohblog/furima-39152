@@ -65,7 +65,6 @@ class ItemsController < ApplicationController
       :sales_status_id,
       :shipping_cost_id,
       :prefecture_id,
-      :shipping_date_id,
       :scheduled_delivery_id,
       :price
     ).merge(user_id: current_user.id)

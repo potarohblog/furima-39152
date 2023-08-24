@@ -12,7 +12,7 @@ class Item < ApplicationRecord
     with_options presence: true do
       validates :title, :text, :image
       
-      with_options numericality: { other_than: 1 } do
+      with_options numericality: { other_than: 0 } do
         validates :category_id, :sales_status_id, :shipping_cost_id, :prefecture_id, :scheduled_delivery_id
       end
   
