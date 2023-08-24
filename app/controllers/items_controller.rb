@@ -41,9 +41,9 @@ class ItemsController < ApplicationController
   #   end
   # end
 
-  def show
-    @item = Item.find(params[:id])
-  end
+  # def show
+  #   @item = Item.find(params[:id])
+  # end
 
   # def destroy
   #   # ログインしているユーザーと同一であればデータを削除する
@@ -71,7 +71,7 @@ class ItemsController < ApplicationController
     ).merge(user_id: current_user.id)
   end
 
-  def set_item
-    @item = Item.find(params[:id])
-  end
+#   def set_item
+#     @item = Item.find(params[:id])
+#   end
 end
