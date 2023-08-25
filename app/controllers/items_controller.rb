@@ -22,13 +22,15 @@ class ItemsController < ApplicationController
     end
   end
 
-  # def edit
-  #   # ログインしているユーザーと同一であればeditファイルが読み込まれる
-  #   if @item.user_id == current_user.id && @item.order.nil?
-  #   else
-  #     redirect_to root_path
-  #   end
-  # end
+  def edit
+    @item = Item.find(params[:id])
+    # ログインしているユーザーと同一であればeditファイルが読み込まれる
+    if @item.user_id == current_user.id
+      #&&@item.order.nil?
+    else
+      redirect_to root_path
+    end
+  end
 
   # def update
   #   @item.update(item_params)
