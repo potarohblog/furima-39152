@@ -2,8 +2,8 @@ class ItemsController < ApplicationController
   # ログインしていない時はnew、edit、update、destroyのページに遷移できないようにする
   before_action :authenticate_user!, only: [:new, :edit, :update]
 
-  # 重複処理をまとめる
-  # before_action :set_item, only: [:show, :edit, :update, :destroy]
+  # show、edit、update,、destroy時に「@item = Item.find(params[:id])」の処理を行う
+  before_action :set_item, only: [:show, :edit, :update]
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -18,13 +18,12 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to root_path
     else
-      ログインしていない時は
+      # ログインしていない時は商品出品ページに飛ぶ
       render :new
     end
   end
 
   def edit
-    @item = Item.find(params[:id])
     #違うユーザーが投稿を編集するページにアクセスできないようにする
     if @item.user != current_user
       redirect_to root_path
@@ -32,7 +31,6 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to @item
     else
@@ -41,7 +39,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   # def destroy
@@ -70,7 +67,7 @@ class ItemsController < ApplicationController
     ).merge(user_id: current_user.id)
   end
 
-#   def set_item
-#     @item = Item.find(params[:id])
-#   end
+  def set_item
+    @item = Item.find(params[:id])
+  end
 end
