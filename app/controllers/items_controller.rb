@@ -1,9 +1,9 @@
 class ItemsController < ApplicationController
-  # ログインしていないユーザーはログインページに促す
-  before_action :authenticate_user!, only: [:new, :create]
+  # ログインしていない時はnew、edit、update、destroyのページに遷移できないようにする
+  before_action :authenticate_user!, only: [:new, :edit, :update]
 
-  # 重複処理をまとめる
-  # before_action :set_item, only: [:show, :edit, :update, :destroy]
+  # show、edit、update,、destroy時に「@item = Item.find(params[:id])」の処理を行う
+  before_action :set_item, only: [:show, :edit, :update]
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -18,31 +18,27 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to root_path
     else
+      # ログインしていない時は商品出品ページに飛ぶ
       render :new
     end
   end
 
-  # def edit
-  #   # ログインしているユーザーと同一であればeditファイルが読み込まれる
-  #   if @item.user_id == current_user.id && @item.order.nil?
-  #   else
-  #     redirect_to root_path
-  #   end
-  # end
+  def edit
+    #違うユーザーが投稿を編集するページにアクセスできないようにする
+    if @item.user != current_user
+      redirect_to root_path
+    end
+  end
 
-  # def update
-  #   @item.update(item_params)
-  #   # バリデーションがOKであれば詳細画面へ
-  #   if @item.valid?
-  #     redirect_to item_path(item_params)
-  #   else
-  #     # NGであれば、エラー内容とデータを保持したままeditファイルを読み込み、エラーメッセージを表示させる
-  #     render 'edit'
-  #   end
-  # end
+  def update
+    if @item.update(item_params)
+      redirect_to @item
+    else
+      render :edit
+    end
+  end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   # def destroy
@@ -71,7 +67,7 @@ class ItemsController < ApplicationController
     ).merge(user_id: current_user.id)
   end
 
-#   def set_item
-#     @item = Item.find(params[:id])
-#   end
+  def set_item
+    @item = Item.find(params[:id])
+  end
 end
