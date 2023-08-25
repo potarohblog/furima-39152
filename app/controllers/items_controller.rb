@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーはログインページに促す
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, only: [:new, :create]
 
   # 重複処理をまとめる
   # before_action :set_item, only: [:show, :edit, :update, :destroy]
@@ -41,9 +41,9 @@ class ItemsController < ApplicationController
   #   end
   # end
 
-  # def show
-  #   @item = Item.find(params[:id])
-  # end
+  def show
+    @item = Item.find(params[:id])
+  end
 
   # def destroy
   #   # ログインしているユーザーと同一であればデータを削除する
