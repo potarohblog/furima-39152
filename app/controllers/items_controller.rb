@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  # ログインしていないユーザーはログインページに促す
-  before_action :authenticate_user!, only: [:new, :create]
+  # ログインしていない時はnew、edit、update、destroyのページに遷移できないようにする
+  before_action :authenticate_user!, only: [:new, :edit, :update]
 
   # 重複処理をまとめる
   # before_action :set_item, only: [:show, :edit, :update, :destroy]
@@ -18,30 +18,27 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to root_path
     else
+      ログインしていない時は
       render :new
     end
   end
 
   def edit
     @item = Item.find(params[:id])
-    # ログインしているユーザーと同一であればeditファイルが読み込まれる
-    if @item.user_id == current_user.id
-      #&&@item.order.nil?
-    else
+    #違うユーザーが投稿を編集するページにアクセスできないようにする
+    if @item.user != current_user
       redirect_to root_path
     end
   end
 
-  # def update
-  #   @item.update(item_params)
-  #   # バリデーションがOKであれば詳細画面へ
-  #   if @item.valid?
-  #     redirect_to item_path(item_params)
-  #   else
-  #     # NGであれば、エラー内容とデータを保持したままeditファイルを読み込み、エラーメッセージを表示させる
-  #     render 'edit'
-  #   end
-  # end
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to @item
+    else
+      render :edit
+    end
+  end
 
   def show
     @item = Item.find(params[:id])
