@@ -1,9 +1,7 @@
 class OrderForm
   include ActiveModel::Model
-  # order_idは、保存されたタイミングで生成されるため、attr_accessorにおいて不要なカラムとなる（書くと蛇足なのでエラー）
   attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :block, :building, :phone_number, :token
 
-  # 4行目と同じくこのタイミングでは生成前なので「validates :order_id」は不要
   with_options presence: true do
     # orderモデルのバリデーション
     validates :user_id

@@ -69,6 +69,5 @@ group :production do
   gem 'rails_12factor'
 end
 
-gem 'payjp'
-
 gem "aws-sdk-s3", require: false
+gem 'payjp'

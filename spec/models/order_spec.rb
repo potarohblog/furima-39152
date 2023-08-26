@@ -1,20 +1,27 @@
 require 'rails_helper'
 
-describe Order, type: :model do
-  # before do
-  #   @order = FactoryBot.build(:order)
-  # end
+RSpec.describe Order, type: :model do
+  before do
+    @order = FactoryBot.build(:order)
+  end
 
-  # describe '商品出品' do
-  #   context '商品出品がうまくいくとき' do
-  #     it '全ての項目が入力されていれば出品ができる' do
-  #       expect(@order).to be_valid
-  #     end
-  #   end
+  context '内容に問題ない場合' do
+    it "priceとtokenがあれば保存ができること" do
+      expect(@order).to be_valid
+    end
+  end
 
-  #   context '商品出品がうまくいかないとき' do
-  #     it '' do
-  #     end
-  #   end
-  # end
+  context '内容に問題がある場合' do
+    it "priceが空では保存ができないこと" do
+      @order.price = nil
+      @order.valid?
+      expect(@order.errors.full_messages).to include("Price can't be blank")
+    end
+
+    it "tokenが空では登録できないこと" do
+      @order.token = nil
+      @order.valid?
+      expect(@order.errors.full_messages).to include("Token can't be blank")
+    end
+  end
 end
