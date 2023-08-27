@@ -10,8 +10,8 @@
       <%= image_tag @item.image.variant(resize: '500x500'),class:"item-box-img" %>
   
       <%# 商品が売れている場合は、sold outを表示 %>
-      <%# <% if @item.order != nil %>
-      <%# <div class='sold-out'>
+      <% if @item.order != nil %>
+      <div class='sold-out'>
         <span>Sold Out!!</span>
       </div>
       <% end %> 
@@ -34,8 +34,10 @@
       <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
 
       <%# 未購入品でない場合には、売り切れを表示 %>
-      <%# elsif @item.order.present? %>
-
+      <% elsif @item.order.present? %>
+      <div class='sold-out'>
+        <span>Sold Out!!</span>
+      </div>
       <% else %>
       <%# 出品者以外かつ未購入品であれば、購入画面を表示 %>
       <%= link_to '購入画面に進む', item_orders_path(@item.id), class:"item-red-btn"%>
