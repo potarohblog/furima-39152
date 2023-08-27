@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
       redirect_to root_path
       
     # 出品したユーザーが商品を購入できないようにする
-    else @item.user == current_user
+    elsif @item.user == current_user
         redirect_to root_path
     end
   end

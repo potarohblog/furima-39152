@@ -26,22 +26,20 @@
     </div>
 
   <%# ログイン中であれば表示 %>
-  <% if user_signed_in? %> 
-    <%# 出品者かつ未購入品であれば、編集・削除を表示 %>
-    <% if current_user.id == @item.user_id %> 
+  <% if user_signed_in? %>
+    <% if @item.order.present? %>
+    <%# 売却された商品は売り切れを表示 %>
+
+    <% elsif current_user.id == @item.user_id %> 
+      <%# 出品者かつ購入可能であれば、編集・削除ボタンを表示 %>
       <%= link_to '商品の編集',edit_item_path(@item), method: :get, class: "item-red-btn" %>
       <p class='or-text'>or</p>
-      <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
-
-      <%# 未購入品でない場合には、売り切れを表示 %>
-      <% elsif @item.order.present? %>
-      <div class='sold-out'>
-        <span>Sold Out!!</span>
-      </div>
-      <% else %>
-      <%# 出品者以外かつ未購入品であれば、購入画面を表示 %>
+    <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
+  
+    <% else %>
+      <%# 出品者以外かつ購入可能であれば、購入ボタンを表示 %>
       <%= link_to '購入画面に進む', item_orders_path(@item.id), class:"item-red-btn"%>
-      <% end %>
+    <% end %>
   <% end %>
 
     <div class="item-explain-box">
