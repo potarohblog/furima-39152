@@ -1,6 +1,6 @@
 const pay = () => {
   // PAY.JPテスト公開鍵（payjp.jsライブラリの中で定義されているメソッド）
-  payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY);
+  const payjp = Payjp(process.env.PAYJP_PUBLIC_KEY);
   const elements = payjp.elements();
   const numberElement = elements.create('cardNumber');
   const expiryElement = elements.create('cardExpiry');
