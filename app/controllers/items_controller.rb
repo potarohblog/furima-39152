@@ -27,6 +27,10 @@ class ItemsController < ApplicationController
     #違うユーザーが商品を編集するページにアクセスできないようにする
     if @item.user != current_user
       redirect_to root_path
+      
+      # 売り切れになった商品を購入できないようにする
+    elsif @item.order.present?
+      redirect_to root_path
     end
   end
 
