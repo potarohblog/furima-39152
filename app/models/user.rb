@@ -12,7 +12,7 @@ class User < ApplicationRecord
         has_many :items
 
         # 購入機能
-        # has_many :orders
+        has_many :orders
         
         # ニックネームが空欄だと入力できないようにする
         with_options presence: true do
