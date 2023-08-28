@@ -29,10 +29,10 @@ class OrdersController < ApplicationController
     elsif @item.user == current_user
         redirect_to root_path
     end
-  end
-
+    
   def order_params
     params.require(:order_form).permit(:postcode, :prefecture_id, :city, :block, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+
   end
 
   def pay_item
